@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!-- Include the CesiumJS JavaScript and CSS files -->
+  <script src="https://cesium.com/downloads/cesiumjs/releases/1.134/Build/Cesium/Cesium.js"></script>
+  <link href="https://cesium.com/downloads/cesiumjs/releases/1.134/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+</head>
+<body>
+  <div id="cesiumContainer"></div>
+  <script type="module">
+    // Your access token can be found at: https://ion.cesium.com/tokens.
+    // This is the default access token from your ion account
+
+    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI1ZTg2YTAwNy0xZGI3LTQ2NTAtYmI0OC1lNGU2ZWMzNDc4MDkiLCJpZCI6Mjc3MjI4LCJpYXQiOjE3NjA1MDQwMTN9.oEx3xD_Xv21K1LJUHf_Vwwr2LYxMUANkRLAx1byrV7Y';
+
+    // Initialize the Cesium Viewer in the HTML element with the `cesiumContainer` ID.
+    const viewer = new Cesium.Viewer('cesiumContainer', {
+      terrain: Cesium.Terrain.fromWorldTerrain(),
+    });    
+
+viewer.scene.setTerrain(
+  new Cesium.Terrain(
+    Cesium.CesiumTerrainProvider.fromIonAssetId(3926541),
+  ),
+);
+
+const layer = viewer.imageryLayers.addImageryProvider(
+  await Cesium.IonImageryProvider.fromAssetId(3830183),
+);
+
+try {
+  const imageryLayer = viewer.imageryLayers.addImageryProvider(
+    await Cesium.IonImageryProvider.fromAssetId(3923235),
+  );
+
+const layer = viewer.imageryLayers.addImageryProvider(
+  await Cesium.IonImageryProvider.fromAssetId(3896585),
+);
+  await viewer.zoomTo(imageryLayer);
+} catch (error) {
+  console.log(error);
+}
+
+  </script>
+ </div>
+</body>
+</html>
